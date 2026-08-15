@@ -31,3 +31,5 @@ class Approvisionnement {
 //     FOREIGN KEY (utilisateur_id)
 //         REFERENCES utilisateurs(id)
 // );
+
+

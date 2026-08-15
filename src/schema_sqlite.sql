@@ -93,7 +93,8 @@ CREATE TABLE dettes (
 
     CHECK (montant_initial >= 0),
     CHECK (montant_restant >= 0),
-    CHECK (montant_restant <= montant_initial)
+    CHECK (montant_restant <= montant_initial),
+    CHECK (statut IN ('Solde', 'Non solde'))
 );
 
 CREATE TABLE reglements (
@@ -123,7 +124,8 @@ CREATE TABLE fournisseurs (
 
 CREATE TABLE statuts_appro (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    libelle TEXT NOT NULL UNIQUE
+    libelle TEXT NOT NULL UNIQUE,
+    CHECK (libelle IN ('En cours', 'Réceptionné'))
 );
 
 CREATE TABLE approvisionnements (

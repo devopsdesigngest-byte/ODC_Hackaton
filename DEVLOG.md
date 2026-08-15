@@ -65,3 +65,13 @@ J’ai également dû comprendre comment utiliser PDO pour se connecter à Postg
 - **Difficultés / Obstacles** : 
 Je ne savais pas toujours si une méthode aurait réellement un impact dans le projet, car je n’ai pas encore une vision complète du fonctionnement final.
 J’ai donc commencé par créer mes 13 Entities en suivant mon diagramme de classes, avec leurs attributs et leurs clés étrangères. Cela m’a permis d’avancer rapidement et de garder une base claire. Pour les méthodes, j’en ai défini seulement quelques-unes pour le moment et je pourrai en ajouter ou modifier selon les besoins du projet.
+
+
+### ☀️ [Samedi - Phase 2] : POO, Repositories & Ventes POS
+- **Heure de réalisation** : 14h 15
+- **Ce qui a été fait** : Refactoring
+- **Difficultés / Obstacles** : 
+Difficultés / Obstacles :
+Le principal problème rencontré concernait l’emplacement du fichier SQLite et le chemin utilisé par le fallback. J’ai également dû corriger la configuration de la connexion PostgreSQL après le changement de nom de la base.
+Tests réalisés :
+J’ai effectué plusieurs tests de connexion. La connexion PostgreSQL fonctionne correctement. J’ai également testé le fallback SQLite et vérifié que la connexion bascule bien vers SQLite lorsque PostgreSQL n’est pas disponible.

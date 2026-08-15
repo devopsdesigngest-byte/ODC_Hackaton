@@ -162,3 +162,12 @@ CREATE TABLE lignes_approvisionnement (
     CHECK (quantite_recue <= quantite_commandee),
     CHECK (prix_unitaire >= 0)
 );
+
+
+ALTER TABLE statuts_appro
+ADD CONSTRAINT check_statut_appro
+CHECK (libelle IN ('En cours', 'Réceptionné'));
+
+ALTER TABLE dettes
+ADD CONSTRAINT check_statut_dette
+CHECK (statut IN ('Solde', 'Non solde'));
