@@ -48,3 +48,11 @@ Cette partie m'a permis de mieux comprendre le principe du fallback entre Postgr
 - **Difficultés / Obstacles** : 
 J’ai eu du mal à comprendre le fonctionnement du Singleton au début.
 J’ai également dû comprendre comment utiliser PDO pour se connecter à PostgreSQL(deja connu) et SQLite.
+
+
+
+
+### ☀️ [Samedi - Phase 2] : POO, Repositories & Ventes POS
+- **Heure de réalisation** : 08h 25
+- **Ce qui a été fait** : Deplacer les fichiers importants comme les shemas et le dossier src 
+- **Difficultés / Obstacles** : Pas obstacle mais j'ai un peu de soucis à savoir comment git se comportera
