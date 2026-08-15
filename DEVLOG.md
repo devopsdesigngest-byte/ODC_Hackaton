@@ -56,3 +56,12 @@ J’ai également dû comprendre comment utiliser PDO pour se connecter à Postg
 - **Heure de réalisation** : 08h 25
 - **Ce qui a été fait** : Deplacer les fichiers importants comme les shemas et le dossier src 
 - **Difficultés / Obstacles** : Pas obstacle mais j'ai un peu de soucis à savoir comment git se comportera
+
+
+
+### ☀️ [Samedi - Phase 2] : POO, Repositories & Ventes POS
+- **Heure de réalisation** : 08h 25
+- **Ce qui a été fait** : Création des Entités POO Pure
+- **Difficultés / Obstacles** : 
+Je ne savais pas toujours si une méthode aurait réellement un impact dans le projet, car je n’ai pas encore une vision complète du fonctionnement final.
+J’ai donc commencé par créer mes 13 Entities en suivant mon diagramme de classes, avec leurs attributs et leurs clés étrangères. Cela m’a permis d’avancer rapidement et de garder une base claire. Pour les méthodes, j’en ai défini seulement quelques-unes pour le moment et je pourrai en ajouter ou modifier selon les besoins du projet.
