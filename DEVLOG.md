@@ -1,3 +1,12 @@
+# 📓 Journal de Développement (DEVLOG)
+**Nom & Prénom** : [MBOW & Ndiasse]  
+**Projet** : StoreManager Pro (ERP PHP/POO)  
+
+---
+
+## 1. Suivi Chronologique des Phases
+
+
 ### 🌃 [Vendredi - Phase 1] : Conception & BDD Fallback
 - **Heure de réalisation** : 20 H 30 mais vous avez demandeez des corrections que j'ai vu tardivement donc 02 h 14
 - **Ce qui a été fait** : Use case et Diagramme de classe
@@ -14,3 +23,17 @@ La prochaine fois, je prendrai le temps de lire et de comprendre l'ensemble des 
 je me perdais aussi au milieu de beaucoup de classes
 
 
+
+
+
+
+
+
+
+### 🌃 [Vendredi - Phase 1] : Conception & BDD Fallback
+- **Heure de réalisation** : 02 h 47
+- **Ce qui a été fait** : Les shemas (sqllite, postgres)
+- **Difficultés / Obstacles** : 
+J'ai remarqué que PostgreSQL et SQLite sont assez similaires dans la manière de créer les tables et les relations. La principale différence que j'ai remarquée concerne la gestion des identifiants auto-incrémentés.
+Au début, je n'avais pas compris qu'il fallait également établir une connexion avec SQLite comme on le fait avec PostgreSQL, puisque ce sont toutes les deux des bases de données.
+Cette partie m'a permis de mieux comprendre le principe du fallback entre PostgreSQL et SQLite et pourquoi l'application doit pouvoir utiliser l'une ou l'autre.
