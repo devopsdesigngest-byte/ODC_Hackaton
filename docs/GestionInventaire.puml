@@ -1,0 +1,50 @@
+@startuml inventaire
+
+left to right direction 
+
+actor "Inventaire" as inv
+actor "Charge Stock" as cs
+actor "Admin" as ad
+
+rectangle "Inventaire" {
+
+    usecase "Enregistrer produit" as ep
+    usecase "Enregistrer client" as ec
+    usecase "Enregistrer fournisseur" as ef
+
+    usecase "lister stats" as ls
+
+    usecase "lister produit" as lp
+    usecase "lister client" as lc
+    usecase "lister fournisseur" as lf
+
+    usecase "filtrer produit" as fp
+    
+    usecase "Connecter " as c 
+}
+
+inv --> ep
+inv --> ef
+inv --> ec
+
+inv --> lp
+inv --> lf
+inv --> lc
+
+ep ..|> c : <<include>> 
+ec ..|> c : <<include>>
+ef ..|> c : <<include>> 
+lp ..|> c : <<include>>
+lc ..|> c : <<include>>
+lf ..|> c : <<include>>
+ls ..|> c : <<include>>
+
+inv --> ls
+
+lp <.. fp : <<extends>>
+
+ad ..|> cs
+
+cs ..|> inv
+
+@enduml

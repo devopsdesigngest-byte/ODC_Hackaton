@@ -1,0 +1,53 @@
+@startuml "Administration des ventes"
+
+left to right direction
+
+actor "Administrateur" as Admin
+actor "Agent commercial" as Agent
+
+rectangle "Système de gestion commerciale" {
+
+    package "Tableau de bord" {
+        usecase "Afficher les statistiques" as Stats
+        usecase "Consulter les paiements" as Paiements
+        usecase "Suivre les créances clients" as Creances
+        usecase "Consulter les ventes" as Ventes
+    }
+
+    package "Gestion des ventes" {
+        usecase "Créer une vente" as Vente
+        usecase "Choisir le client" as Client
+        usecase "Ajouter un produit" as Produit
+        usecase "Choisir le produit" as ChoixProduit
+        usecase "Indiquer la quantité" as Quantite
+        usecase "Choisir le paiement" as ModePaiement
+        usecase "Indiquer le montant payé" as Montant
+    }
+
+    package "Commandes" {
+        usecase "Rechercher une commande" as Recherche
+        usecase "Consulter le détail" as Detail
+    }
+}
+
+Agent --> Stats
+Agent --> Vente
+Agent --> Recherche
+
+Vente ..> Client : <<include>>
+Vente ..> Produit : <<include>>
+Vente ..> ModePaiement : <<include>>
+Vente ..> Montant : <<include>>
+
+Produit ..> ChoixProduit : <<include>>
+Produit ..> Quantite : <<include>>
+
+Paiements ..> Stats : <<extend>>
+Creances ..> Stats : <<extend>>
+Ventes ..> Stats : <<extend>>
+
+Detail ..> Recherche : <<extend>>
+
+Admin --|> Agent
+
+@enduml
