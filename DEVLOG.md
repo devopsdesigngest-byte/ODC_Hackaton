@@ -75,3 +75,28 @@ Difficultés / Obstacles :
 Le principal problème rencontré concernait l’emplacement du fichier SQLite et le chemin utilisé par le fallback. J’ai également dû corriger la configuration de la connexion PostgreSQL après le changement de nom de la base.
 Tests réalisés :
 J’ai effectué plusieurs tests de connexion. La connexion PostgreSQL fonctionne correctement. J’ai également testé le fallback SQLite et vérifié que la connexion bascule bien vers SQLite lorsque PostgreSQL n’est pas disponible.
+
+
+
+### ☀️ [Samedi - Phase 2] : POO, Repositories & Ventes POS
+- **Heure de réalisation** : Dimanche 10h 00
+- **Ce qui a été fait** : 
+Mise en place des Repositories et des requêtes SQL sécurisées.
+Ajout des getters et setters(produits, fournisseurs et clients) pour accéder aux attributs private.
+Analyse de la vue pour identifier tout ce qui concerne les produits, fournisseurs et clients.
+Adaptation de ces éléments dans les Repositories avec succès.
+Première utilisation de fetchClass, puis suppression afin d'utiliser une méthode de transformation manuelle des données en objets.
+- **Difficultés / Obstacles** : 
+Difficulté à choisir la meilleure approche et à faire une étude comparative entre les différentes solutions.
+Ma compréhension du code objet est encore à ameliorer.
+j'ai fait plusieurs erreurs liées à l'oubli de $this.
+je pense toujours à l'approche procédurale alors que le projet est orienté objet.
+
+
+
+
+
+
+
+  
+
