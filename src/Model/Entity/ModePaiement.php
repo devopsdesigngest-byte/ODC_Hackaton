@@ -8,9 +8,3 @@ class ModePaiement {
         return $this->libelle;
     }
 }
-
-
-// CREATE TABLE modes_paiement (
-//     id SERIAL PRIMARY KEY,
-//     libelle VARCHAR(50) NOT NULL UNIQUE
-// );

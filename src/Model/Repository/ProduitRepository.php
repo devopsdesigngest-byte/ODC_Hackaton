@@ -5,6 +5,7 @@ require_once dirname(__DIR__). "/../Core/Database.php";
 require_once dirname(__DIR__). "/Entity/Produit.php";
 
 class ProduitRepository {
+    
     private Database $database;
 
     public function __construct() {
@@ -17,17 +18,12 @@ class ProduitRepository {
         return $this->database->executeUpdate($sql, [':libelle' => $libelle, ':prix_vente' => $prixVente, ':stock_initial' => $stockInitial]);
     }
 
-    public function getAllProduit(): array {
+    public function getAllProduit() : array {
         $sql = "SELECT * FROM produits";
         $lignes = $this->database->query($sql, false);
         $produits = [];
         foreach ($lignes as $ligne) {
-            $produits[] = new Produit(
-                $ligne['id'],
-                $ligne['libelle'],
-                $ligne['prix_vente'],
-                $ligne['stock_initial']
-            );
+            $produits[] = new Produit($ligne['id'], $ligne['libelle'], $ligne['prix_vente'], $ligne['stock_initial']);
         }
         return $produits;
     }
@@ -40,6 +36,18 @@ class ProduitRepository {
 
     public function seuilProduit() : int {
         $sql = "SELECT COUNT(*) AS nombre FROM produits WHERE stock_initial <= 5";
+        $result = $this->database->query($sql);
+        return (int) $result['nombre'];
+    }
+
+    public function diminuerStock(int $produitId, int $quantite) : int {
+        $sql = "UPDATE produits SET stock_initial = stock_initial - :quantite
+                WHERE id = :produitId AND stock_initial >= :quantite";
+        return $this->database->executeUpdate($sql, [':produitId' => $produitId, ':quantite' => $quantite]);
+    }
+
+    public function getNbrProduit() : int {
+        $sql = "SELECT COUNT(*) AS nombre FROM produits";
         $result = $this->database->query($sql);
         return (int) $result['nombre'];
     }

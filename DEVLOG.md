@@ -104,3 +104,17 @@ J’avais besoin de réécrire tout le code pour mieux comprendre son fonctionne
 Nous avions déjà réalisé une grande partie du travail en classe de manière procédurale, mais le passage à la programmation orientée objet était parfois abstrait pour moi. Par exemple, j’avais du mal à comprendre concrètement comment faire communiquer toutes les notions abordées en classe. Le fait de réécrire et de tester chaque partie m’a permis de mieux comprendre ces concepts.
 
 
+
+
+
+
+### ☀️ [Samedi - Phase 2] : Service Métier Vente POS & Transaction SQL
+- **Heure de réalisation** : Dimanche 17h 15
+- **Ce qui a été fait** : 
+J’ai mis en place le service métier de vente POS avec la gestion d’une transaction SQL.
+J’ai fait en sorte que le service puisse enregistrer une commande, ses lignes, diminuer le stock et créer une dette lorsque le montant n’est pas entièrement payé.
+Mais j'ai pas encore tester
+- **Difficultés / Obstacles** : 
+J’ai eu des difficultés à bien comprendre la séparation des responsabilités entre la vue, le service et les repositories.
+J’ai dû comprendre quelles informations devaient être préparées par la vue et lesquelles devaient être traitées par le service.
+J’ai également eu besoin de mieux comprendre le fonctionnement d’une transaction SQL, notamment beginTransaction(), commit() et rollback(), pour que toutes les opérations de la vente soient validées ou annulées ensemble.

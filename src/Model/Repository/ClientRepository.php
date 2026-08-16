@@ -21,9 +21,7 @@ class ClientRepository {
         }
         return $clients; 
     }  
-
            
-
     public function saveClient(string $nom, string $prenom, string $email, string $numero_telephone, float $limite_credit): int {
         $sql = "INSERT INTO clients(nom, prenom, email, numero_telephone, limite_credit)
             VALUES (:nom, :prenom, :email, :numero_telephone, :limite_credit)";
@@ -35,5 +33,6 @@ class ClientRepository {
         $ligne = $this->database->query($sql);
         return (int) $ligne['nombre'];
     }
+    
 
 }

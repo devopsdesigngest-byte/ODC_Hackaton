@@ -23,15 +23,14 @@
 
 
 
-use App\Core\Database;
+// use App\Core\Database;
 
-require_once "src/Model/Repository/ClientRepository.php";
+// require_once "src/Model/Repository/ClientRepository.php";
 
-
-$repo = new ClientRepository();
-$clients = $repo->getAllClient();
-// var_dump($clients);
-foreach ($clients as $client) {
-    echo $client->getNom() . " ";
-    echo $client->getPrenom() . PHP_EOL;
-}
+// $repo = new ClientRepository();
+// $clients = $repo->getAllClient();
+// // var_dump($clients);
+// foreach ($clients as $client) {
+//     echo $client->getNom() . " ";
+//     echo $client->getPrenom() . PHP_EOL;
+// }

@@ -24,13 +24,7 @@ class FournisseurRepository {
         $lignes = $this->database->query($sql, false);
         $fournisseurs = [];
         foreach ($lignes as $ligne) {
-            $fournisseurs[] = new Fournisseur(
-                $ligne['id'],
-                $ligne['nom'],
-                $ligne['email'],
-                $ligne['numero_telephone'],
-                $ligne['adresse']
-            );
+            $fournisseurs[] = new Fournisseur($ligne['id'], $ligne['nom'], $ligne['email'], $ligne['numero_telephone'], $ligne['adresse']);
         }
         return $fournisseurs;
     }
