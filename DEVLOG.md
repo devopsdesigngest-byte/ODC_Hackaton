@@ -96,7 +96,11 @@ je pense toujours à l'approche procédurale alors que le projet est orienté ob
 
 
 
+### ☀️ [Samedi - Phase 2] : Refactoring pour comprendre et tester
+- **Heure de réalisation** : Dimanche 15h 00
+- **Ce qui a été fait** : 
+J’avais besoin de réécrire tout le code pour mieux comprendre son fonctionnement et de tester toutes mes fonctions avant d’avancer. J’ai également ajouté les getters et setters afin de mieux visualiser et manipuler les propriétés private.
+- **Difficultés / Obstacles** : 
+Nous avions déjà réalisé une grande partie du travail en classe de manière procédurale, mais le passage à la programmation orientée objet était parfois abstrait pour moi. Par exemple, j’avais du mal à comprendre concrètement comment faire communiquer toutes les notions abordées en classe. Le fait de réécrire et de tester chaque partie m’a permis de mieux comprendre ces concepts.
 
-
-  
 
