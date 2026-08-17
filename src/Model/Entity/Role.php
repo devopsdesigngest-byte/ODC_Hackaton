@@ -1,17 +1,27 @@
 <?php
 
 class Role {
-    private int $id; 
-    private string $nom_role;  
+    private int $id;
+    private string $nom_role;
 
+    public function __construct(int $id, string $nom_role) {
+        $this->id = $id;
+        $this->nom_role = $nom_role;
+    }
 
+    public function getId() : int {
+        return $this->id;
+    }
 
-    public function getNomRole(): string {
+    public function setId(int $id) : void {
+        $this->id = $id;
+    }
+
+    public function getNomRole() : string {
         return $this->nom_role;
     }
-}
 
-// CREATE TABLE roles (
-//     id SERIAL PRIMARY KEY,
-//     nom_role VARCHAR(50) NOT NULL UNIQUE
-// );
+    public function setNomRole(string $nom_role) : void {
+        $this->nom_role = $nom_role;
+    }
+}

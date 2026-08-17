@@ -70,7 +70,9 @@ Ce document détaille **heure par heure** la feuille de route du week-end. Aprè
   ```
 - **Consigne `DEVLOG.md`** : Remplir la section *Phase 2 (Interface POS)*.
 
----
+---  ```bash
+  git commit -m "feat(pos): finalisation du controleur et de l'interface de caisse tactile"
+  ```
 
 ### 🚀 PHASE 3 : DIMANCHE (09h00 - 18h00) — Dettes, Approvisionnements, Rôles & Clôture
 

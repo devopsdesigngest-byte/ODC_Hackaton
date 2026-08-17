@@ -12,22 +12,68 @@ class Commande {
     private Client $client;
     private Utilisateur $utilisateur;
     private ModePaiement $modeDePaiement;
+
+
+    public function __construct(int $id, DateTime $date_commande, float $montant_total, float $montant_avance, Client $client, Utilisateur $utilisateur, ModePaiement $modeDePaiement){
+        $this->id = $id;
+        $this->date_commande = $date_commande;
+        $this->montant_total = $montant_total;
+        $this->montant_avance = $montant_avance;
+        $this->client = $client;
+        $this->utilisateur = $utilisateur;
+        $this->modeDePaiement = $modeDePaiement;
+    }
+
+    public function getId() : int {
+        return $this->id;
+    }
+    public function setId(int $id) : void {
+        $this->id = $id;
+    }
+
+
+    public function getDate_commande() : DateTime {
+        return $this->date_commande;
+    }
+    public function setDate_commande(DateTime $date_commande) : void {
+        $this->date_commande = $date_commande;
+    }
+
+
+    public function getMontant_total() : float {
+        return $this->montant_total;
+    }
+    public function setMontant_total(float $montant_total) : void {
+        $this->montant_total = $montant_total;
+    }
+
+    public function getMontant_avance() : float {
+        return $this->montant_avance;
+    }
+    public function setMontant_avance(float $montant_avance) : void {
+        $this->montant_avance = $montant_avance;
+    }
+
+    public function getClient() : Client {
+        return $this->client;
+    }
+    public function setClient(Client $client) : void {
+        $this->client = $client;
+    }
+
+    public function getUtilisateur() : Utilisateur {
+        return $this->utilisateur;
+    }
+    public function setUtilisateur(Utilisateur $utilisateur) : void {
+        $this->utilisateur = $utilisateur;
+    }
+
+    public function getModePaiement() : ModePaiement {
+        return $this->modeDePaiement;
+    }
+    public function setModePaiement(ModePaiement $modeDePaiement) : void {
+        $this->modeDePaiement = $modeDePaiement;
+    }
+
 }
 
-// CREATE TABLE commandes (
-//     id SERIAL PRIMARY KEY,
-//     date_commande DATE NOT NULL DEFAULT CURRENT_DATE,
-//     montant_total NUMERIC(12,2) NOT NULL DEFAULT 0,
-//     montant_avance NUMERIC(12,2) NOT NULL DEFAULT 0,
-
-//     client_id INT NOT NULL,
-//     utilisateur_id INT NOT NULL,
-//     mode_paiement_id INT NOT NULL,
-
-//     FOREIGN KEY (client_id) REFERENCES clients(id),
-//     FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id),
-//     FOREIGN KEY (mode_paiement_id) REFERENCES modes_paiement(id),
-//     CHECK (montant_total >= 0),
-//     CHECK (montant_avance >= 0),
-//     CHECK (montant_avance <= montant_total)
-// );

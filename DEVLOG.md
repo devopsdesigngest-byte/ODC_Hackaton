@@ -118,3 +118,52 @@ Mais j'ai pas encore tester
 J’ai eu des difficultés à bien comprendre la séparation des responsabilités entre la vue, le service et les repositories.
 J’ai dû comprendre quelles informations devaient être préparées par la vue et lesquelles devaient être traitées par le service.
 J’ai également eu besoin de mieux comprendre le fonctionnement d’une transaction SQL, notamment beginTransaction(), commit() et rollback(), pour que toutes les opérations de la vente soient validées ou annulées ensemble.
+
+
+
+
+### ☀️ [Samedi - Phase 2] : Controller POS & Vue Caisse
+- **Heure de réalisation** : Dimanche 20h 15
+- **Ce qui a été fait** : 
+Depuis le debut je tester via console mon fichier test_database.php
+la on touche au controller et vue donc il se peut je retouche plusieurs fichiers je les ferai notifie ici
+il se peut pour des raison de comprenhsio n je cherche des alternatives au methode deja redige ou je le recrivent pour comprendre le concept objet:
+
+jai touche a tout les fichiers
+src/Model/Entity pour avoir la main
+src/Database/Repository pour avoir la main
+src/Model/Repository pour avoir la main
+
+jai realise 
+index 
+router 
+Controller POS
+Vue Caisse
+jai charge mes trois methodes dans la vue getAllClient() getAllProduit() getAllModePaiement()Depuis le début, je testais mon application principalement via la console avec mon fichier test_database.php.
+Avec cette phase, j'ai commencé à travailler directement sur le Controller POS et la Vue Caisse, ce qui m'a amené à relier les différentes couches de mon application.
+J'ai touché à plusieurs fichiers afin de mieux comprendre leur rôle et leur fonctionnement :
+src/Model/Entity pour mieux maîtriser mes entités et leurs getters/setters.
+src/Database/Repository pour mieux comprendre la connexion et les requêtes vers la base de données.
+src/Model/Repository pour mieux comprendre la récupération et la manipulation des données.
+J'ai réalisé et/ou mis en place :
+index
+router
+POSController
+Vue Caisse / POS
+J'ai réussi à charger dans la Vue les données provenant de mes repositories avec :
+getAllClient()
+getAllProduit()
+getAllModePaiement()
+J'ai commencé à gérer le fonctionnement de la caisse avec le formulaire de vente.
+J'ai travaillé sur la récupération des données envoyées par la Vue vers le Controller.
+J'ai commencé à mettre en place la gestion du panier avec $_SESSION['panier'].
+J'ai commencé à distinguer les deux actions principales de la caisse :
+ajouter un produit au panier avec le bouton +
+enregistrer la vente avec le bouton Valider la Vente
+J'ai également fait le lien entre le panier et VenteService::enregistrerVente() pour préparer l'enregistrement de la commande, des lignes de commande et la diminution du stock.
+Pour faciliter ma compréhension de la programmation orientée objet et de l'architecture du projet, j'ai pu réécrire ou modifier certaines méthodes déjà réalisées afin de tester différentes approches.
+Je peux donc être amené à modifier plusieurs fichiers pendant cette phase. Je les noterai au fur et à mesure dans le DEVLOG.
+
+- **Difficultés / Obstacles** : 
+ca a été deja fait en classe
+

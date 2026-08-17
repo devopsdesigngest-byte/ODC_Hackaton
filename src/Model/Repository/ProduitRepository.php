@@ -40,15 +40,15 @@ class ProduitRepository {
         return (int) $result['nombre'];
     }
 
-    public function diminuerStock(int $produitId, int $quantite) : int {
-        $sql = "UPDATE produits SET stock_initial = stock_initial - :quantite
-                WHERE id = :produitId AND stock_initial >= :quantite";
-        return $this->database->executeUpdate($sql, [':produitId' => $produitId, ':quantite' => $quantite]);
-    }
-
     public function getNbrProduit() : int {
         $sql = "SELECT COUNT(*) AS nombre FROM produits";
         $result = $this->database->query($sql);
         return (int) $result['nombre'];
+    }
+
+    public function diminuerStock(int $produitId, int $quantite) : int {
+        $sql = "UPDATE produits SET stock_initial = stock_initial - :quantite
+                WHERE id = :produitId AND stock_initial >= :quantite";
+        return $this->database->executeUpdate($sql, [':produitId' => $produitId, ':quantite' => $quantite]);
     }
 }
