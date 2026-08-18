@@ -1,23 +1,23 @@
 <?php
 
-require_once "Approvisionnement.php";
+require_once "Commande.php";
 require_once "Produit.php";
 
-class LigneApprovisionnement {
+class LigneCommande {
     private int $id;
-    private int $quantite_commandee;
-    private int $quantite_recue;
+    private int $quantite;
     private float $prix_unitaire;
+    private float $sous_total;
 
-    private Approvisionnement $approvisionnement;
+    private Commande $commande;
     private Produit $produit;
 
-    public function __construct(int $id, int $quantite_commandee, int $quantite_recue, float $prix_unitaire, Approvisionnement $approvisionnement, Produit $produit) {
+    public function __construct(int $id, int $quantite, float $prix_unitaire, float $sous_total, Commande $commande, Produit $produit) {
         $this->id = $id;
-        $this->quantite_commandee = $quantite_commandee;
-        $this->quantite_recue = $quantite_recue;
+        $this->quantite = $quantite;
         $this->prix_unitaire = $prix_unitaire;
-        $this->approvisionnement = $approvisionnement;
+        $this->sous_total = $sous_total;
+        $this->commande = $commande;
         $this->produit = $produit;
     }
 
@@ -29,20 +29,12 @@ class LigneApprovisionnement {
         $this->id = $id;
     }
 
-    public function getQuantiteCommandee(): int {
-        return $this->quantite_commandee;
+    public function getQuantite(): int {
+        return $this->quantite;
     }
 
-    public function setQuantiteCommandee(int $quantite_commandee): void {
-        $this->quantite_commandee = $quantite_commandee;
-    }
-
-    public function getQuantiteRecue(): int {
-        return $this->quantite_recue;
-    }
-
-    public function setQuantiteRecue(int $quantite_recue): void {
-        $this->quantite_recue = $quantite_recue;
+    public function setQuantite(int $quantite): void {
+        $this->quantite = $quantite;
     }
 
     public function getPrixUnitaire(): float {
@@ -53,12 +45,20 @@ class LigneApprovisionnement {
         $this->prix_unitaire = $prix_unitaire;
     }
 
-    public function getApprovisionnement(): Approvisionnement {
-        return $this->approvisionnement;
+    public function getSousTotal(): float {
+        return $this->sous_total;
     }
 
-    public function setApprovisionnement(Approvisionnement $approvisionnement): void {
-        $this->approvisionnement = $approvisionnement;
+    public function setSousTotal(float $sous_total): void {
+        $this->sous_total = $sous_total;
+    }
+
+    public function getCommande(): Commande {
+        return $this->commande;
+    }
+
+    public function setCommande(Commande $commande): void {
+        $this->commande = $commande;
     }
 
     public function getProduit(): Produit {

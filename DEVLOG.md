@@ -167,3 +167,27 @@ Je peux donc être amené à modifier plusieurs fichiers pendant cette phase. Je
 - **Difficultés / Obstacles** : 
 ca a été deja fait en classe
 
+
+
+
+
+
+
+
+
+
+
+
+### 🚀 [Dimanche - Phase 3] : Dettes, Approvisionnements & Rôles
+- **Heure de réalisation** : 03 h 30
+- **Ce qui a été fait** : 
+Gestion des Dettes & Remboursements
+
+- **Difficultés / Obstacles** : 
+
+
+
+
+ DebtService.php views/dettes/index.php
+  
+git commit -m "feat(dettes): ajout du service de remboursement partiel et mise a jour des statuts SOLDEE"

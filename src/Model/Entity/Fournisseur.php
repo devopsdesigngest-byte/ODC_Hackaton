@@ -1,5 +1,7 @@
 <?php
 
+require_once "Approvisionnement.php";
+
 class Fournisseur {
     
     private int $id;
@@ -8,12 +10,15 @@ class Fournisseur {
     private string $numero_telephone;
     private string $adresse;
 
+    private array $approvisionnements = [];
+
     public function __construct(int $id, string $nom, string $email, string $numero_telephone, string $adresse) {
         $this->id = $id;
         $this->nom = $nom;
         $this->email = $email;
         $this->numero_telephone = $numero_telephone;
         $this->adresse = $adresse;
+        $this->approvisionnements = [];
     }
 
     public function getId(): int {
@@ -54,5 +59,13 @@ class Fournisseur {
 
     public function setAdresse(string $adresse): void {
         $this->adresse = $adresse;
+    }
+
+    public function getApprovisionnements(): array {
+        return $this->approvisionnements;
+    }
+
+    public function ajouterApprovisionnement(Approvisionnement $approvisionnement): void {
+        $this->approvisionnements[] = $approvisionnement;
     }
 }

@@ -3,7 +3,8 @@
 require_once "Dette.php";
 require_once "ModePaiement.php";
 
-class Reglement {
+class Reglement
+{
     private int $id;
     private DateTime $date_reglement;
     private float $montant_verse;
@@ -19,43 +20,43 @@ class Reglement {
         $this->modePaiement = $modePaiement;
     }
 
-    public function getId() : int {
+    public function getId(): int {
         return $this->id;
     }
 
-    public function setId(int $id) : void {
+    public function setId(int $id): void {
         $this->id = $id;
     }
 
-    public function getDateReglement() : DateTime {
+    public function getDateReglement(): DateTime {
         return $this->date_reglement;
     }
 
-    public function setDateReglement(DateTime $date_reglement) : void {
+    public function setDateReglement(DateTime $date_reglement): void {
         $this->date_reglement = $date_reglement;
     }
 
-    public function getMontantVerse() : float {
+    public function getMontantVerse(): float {
         return $this->montant_verse;
     }
 
-    public function setMontantVerse(float $montant_verse) : void {
+    public function setMontantVerse(float $montant_verse): void {
         $this->montant_verse = $montant_verse;
     }
 
-    public function getDette() : Dette {
+    public function getDette(): Dette {
         return $this->dette;
     }
 
-    public function setDette(Dette $dette) : void {
+    public function setDette(Dette $dette): void {
         $this->dette = $dette;
     }
 
-    public function getModePaiement() : ModePaiement {
+    public function getModePaiement(): ModePaiement {
         return $this->modePaiement;
     }
 
-    public function setModePaiement(ModePaiement $modePaiement) : void {
+    public function setModePaiement(ModePaiement $modePaiement): void {
         $this->modePaiement = $modePaiement;
     }
 }

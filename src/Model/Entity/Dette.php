@@ -1,6 +1,7 @@
 <?php
 
 require_once "Commande.php";
+require_once "Reglement.php";
 
 class Dette {
     private int $id;
@@ -11,6 +12,7 @@ class Dette {
     private string $statut;
 
     private Commande $commande;
+    private array $reglements = [];
 
     public function __construct(int $id, float $montant_initial, float $montant_restant, DateTime $date_creation, ?DateTime $date_echeance, string $statut, Commande $commande) {
         $this->id = $id;
@@ -20,6 +22,7 @@ class Dette {
         $this->date_echeance = $date_echeance;
         $this->statut = $statut;
         $this->commande = $commande;
+        $this->reglements = [];
     }
 
     public function getId(): int {
@@ -76,5 +79,13 @@ class Dette {
 
     public function setCommande(Commande $commande): void {
         $this->commande = $commande;
+    }
+
+    public function getReglements(): array {
+        return $this->reglements;
+    }
+
+    public function ajouterReglement(Reglement $reglement): void {
+        $this->reglements[] = $reglement;
     }
 }

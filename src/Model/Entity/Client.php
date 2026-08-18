@@ -1,24 +1,26 @@
 <?php
+require_once "Commande.php";
 
 class Client {
     
     private int $id;
     private string $nom;
     private string $prenom;
-    private string $email;
+    public string $email;
     private string $numero_telephone;
     private float $limite_credit;
 
-    public function __construct(int $id, string $nom, string $prenom, string $email, string $numero_telephone, float $limite_credit) {
+    private array $commandes = [];
+
+    public function __construct(int $id, string $nom, string $prenom, string $numero_telephone, float $limite_credit) {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
-        $this->email = $email;
         $this->numero_telephone = $numero_telephone;
         $this->limite_credit = $limite_credit;
+        $this->commandes = [];
     }
 
-    
     public function getId(): int {
         return $this->id;
     }
@@ -43,14 +45,6 @@ class Client {
         $this->prenom = $prenom;
     }
 
-    public function getEmail(): string {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): void {
-        $this->email = $email;
-    }
-
     public function getNumeroTelephone(): string {
         return $this->numero_telephone;
     }
@@ -64,9 +58,15 @@ class Client {
     }
 
     public function setLimiteCredit(float $limite_credit): void {
-        $this->limite_credit = $limite_credit;
+        if($limite_credit > 1000)
+            $this->limite_credit = $limite_credit;
+    }
+
+    public function getCommandes(): array {
+        return $this->commandes;
+    }
+
+    public function ajouterCommande(Commande $commande): void {
+        $this->commandes[] = $commande;
     }
 }
-
-
-

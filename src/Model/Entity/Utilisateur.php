@@ -1,33 +1,32 @@
 <?php
-
-require_once "Role.php";
+require_once "Role.php"; 
+// utilisons autologue pour eviter naviGation circulaire
 
 class Utilisateur {
-    private int $id;
+    private ?int $id;
     private string $nom_complet;
     private string $email;
     private string $mot_de_passe;
-    private string $adresse;
+    public ?string $adresse;
     private string $numero_telephone;
 
     private Role $role;
 
-    public function __construct(int $id, string $nom_complet, string $email, string $mot_de_passe, string $adresse, string $numero_telephone, Role $role) {
+    public function __construct(?int $id, string $nom_complet, string $email, string $mot_de_passe, string $numero_telephone, Role $role) {
         $this->id = $id;
         $this->nom_complet = $nom_complet;
         $this->email = $email;
         $this->mot_de_passe = $mot_de_passe;
-        $this->adresse = $adresse;
         $this->numero_telephone = $numero_telephone;
         $this->role = $role;
     }
 
-    public function getId() : int {
+    public function getId() : ?int {
         return $this->id;
     }
-
     public function setId(int $id) : void {
-        $this->id = $id;
+        if($id > 0)
+            $this->id = $id;
     }
 
     public function getNomComplet() : string {
@@ -52,14 +51,6 @@ class Utilisateur {
 
     public function setMotDePasse(string $mot_de_passe) : void {
         $this->mot_de_passe = $mot_de_passe;
-    }
-
-    public function getAdresse() : string {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse) : void {
-        $this->adresse = $adresse;
     }
 
     public function getNumeroTelephone() : string {

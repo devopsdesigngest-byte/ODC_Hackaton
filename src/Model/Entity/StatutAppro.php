@@ -1,12 +1,17 @@
 <?php
 
+require_once "Approvisionnement.php";
+
 class StatutAppro {
     private int $id;
     private string $libelle;
 
+    private array $approvisionnements = [];
+
     public function __construct(int $id, string $libelle) {
         $this->id = $id;
         $this->libelle = $libelle;
+        $this->approvisionnements = [];
     }
 
     public function getId() : int {
@@ -23,5 +28,13 @@ class StatutAppro {
 
     public function setLibelle(string $libelle) : void {
         $this->libelle = $libelle;
+    }
+
+    public function getApprovisionnements() : array {
+        return $this->approvisionnements;
+    }
+
+    public function ajouterApprovisionnement(Approvisionnement $approvisionnement) : void {
+        $this->approvisionnements[] = $approvisionnement;
     }
 }

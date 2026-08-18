@@ -1,7 +1,10 @@
 <?php 
+
 require_once "Client.php";
 require_once "Utilisateur.php";
 require_once "ModePaiement.php";
+require_once "LigneCommande.php";
+require_once "Dette.php";
 
 class Commande {
     private int $id;
@@ -12,9 +15,10 @@ class Commande {
     private Client $client;
     private Utilisateur $utilisateur;
     private ModePaiement $modeDePaiement;
+    private array $lignesCommande = [];
+    private ?Dette $dette;
 
-
-    public function __construct(int $id, DateTime $date_commande, float $montant_total, float $montant_avance, Client $client, Utilisateur $utilisateur, ModePaiement $modeDePaiement){
+    public function __construct(int $id, DateTime $date_commande, float $montant_total, float $montant_avance, Client $client, Utilisateur $utilisateur, ModePaiement $modeDePaiement, ?Dette $dette = null){
         $this->id = $id;
         $this->date_commande = $date_commande;
         $this->montant_total = $montant_total;
@@ -22,27 +26,30 @@ class Commande {
         $this->client = $client;
         $this->utilisateur = $utilisateur;
         $this->modeDePaiement = $modeDePaiement;
+        $this->lignesCommande = [];
+        $this->dette = $dette;
     }
 
     public function getId() : int {
         return $this->id;
     }
+
     public function setId(int $id) : void {
         $this->id = $id;
     }
 
-
     public function getDate_commande() : DateTime {
         return $this->date_commande;
     }
+
     public function setDate_commande(DateTime $date_commande) : void {
         $this->date_commande = $date_commande;
     }
 
-
     public function getMontant_total() : float {
         return $this->montant_total;
     }
+
     public function setMontant_total(float $montant_total) : void {
         $this->montant_total = $montant_total;
     }
@@ -50,6 +57,7 @@ class Commande {
     public function getMontant_avance() : float {
         return $this->montant_avance;
     }
+
     public function setMontant_avance(float $montant_avance) : void {
         $this->montant_avance = $montant_avance;
     }
@@ -57,6 +65,7 @@ class Commande {
     public function getClient() : Client {
         return $this->client;
     }
+
     public function setClient(Client $client) : void {
         $this->client = $client;
     }
@@ -64,6 +73,7 @@ class Commande {
     public function getUtilisateur() : Utilisateur {
         return $this->utilisateur;
     }
+
     public function setUtilisateur(Utilisateur $utilisateur) : void {
         $this->utilisateur = $utilisateur;
     }
@@ -71,9 +81,24 @@ class Commande {
     public function getModePaiement() : ModePaiement {
         return $this->modeDePaiement;
     }
+
     public function setModePaiement(ModePaiement $modeDePaiement) : void {
         $this->modeDePaiement = $modeDePaiement;
     }
 
-}
+    public function getLignesCommande() : array {
+        return $this->lignesCommande;
+    }
 
+    public function ajouterLigneCommande(LigneCommande $ligneCommande) : void {
+        $this->lignesCommande[] = $ligneCommande;
+    }
+
+    public function getDette() : ?Dette {
+        return $this->dette;
+    }
+
+    public function setDette(?Dette $dette) : void {
+        $this->dette = $dette;
+    }
+}

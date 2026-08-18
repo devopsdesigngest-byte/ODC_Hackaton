@@ -1,66 +1,93 @@
-<?php
+<?php 
 
-require_once "Fournisseur.php";
-require_once "StatutAppro.php";
+require_once "Client.php";
 require_once "Utilisateur.php";
+require_once "ModePaiement.php";
+require_once "LigneCommande.php";
 
-class Approvisionnement {
+class Commande {
     private int $id;
-    private string $reference_bon;
-    private DateTime $date_approvisionnement;
+    private DateTime $date_commande;
+    private float $montant_total;
+    private float $montant_avance;
 
-    private Fournisseur $fournisseur;
-    private StatutAppro $statutAppro;
+    private Client $client;
     private Utilisateur $utilisateur;
+    private ModePaiement $modeDePaiement;
+    private array $lignesCommande = [];
 
-    public function __construct(int $id, string $reference_bon, DateTime $date_approvisionnement, Fournisseur $fournisseur, StatutAppro $statutAppro, Utilisateur $utilisateur){
+    public function __construct(int $id, DateTime $date_commande, float $montant_total, float $montant_avance, Client $client, Utilisateur $utilisateur, ModePaiement $modeDePaiement) {
         $this->id = $id;
-        $this->reference_bon = $reference_bon;
-        $this->date_approvisionnement = $date_approvisionnement;
-        $this->fournisseur = $fournisseur;
-        $this->statutAppro = $statutAppro;
+        $this->date_commande = $date_commande;
+        $this->montant_total = $montant_total;
+        $this->montant_avance = $montant_avance;
+        $this->client = $client;
         $this->utilisateur = $utilisateur;
+        $this->modeDePaiement = $modeDePaiement;
+        $this->lignesCommande = [];
     }
 
     public function getId() : int {
         return $this->id;
     }
+
     public function setId(int $id) : void {
         $this->id = $id;
     }
 
-    public function getReference_bon() : string {
-        return $this->reference_bon;
-    }
-    public function setReference_bon(string $reference_bon) : void {
-        $this->reference_bon = $reference_bon;
+    public function getDate_commande() : DateTime {
+        return $this->date_commande;
     }
 
-    public function getDate_approvisionnement() : DateTime {
-        return $this->date_approvisionnement;
-    }
-    public function setDate_approvisionnement(DateTime $date_approvisionnement) : void {
-        $this->date_approvisionnement = $date_approvisionnement;
+    public function setDate_commande(DateTime $date_commande) : void {
+        $this->date_commande = $date_commande;
     }
 
-    public function getFournisseur() : Fournisseur {
-        return $this->fournisseur;
-    }
-    public function setFournisseur(Fournisseur $fournisseur) : void {
-        $this->fournisseur = $fournisseur;
+    public function getMontant_total() : float {
+        return $this->montant_total;
     }
 
-    public function getStatutAppro() : StatutAppro {
-        return $this->statutAppro;
+    public function setMontant_total(float $montant_total) : void {
+        $this->montant_total = $montant_total;
     }
-    public function setStatutAppro(StatutAppro $statutAppro) : void {
-        $this->statutAppro = $statutAppro;
+
+    public function getMontant_avance() : float {
+        return $this->montant_avance;
+    }
+
+    public function setMontant_avance(float $montant_avance) : void {
+        $this->montant_avance = $montant_avance;
+    }
+
+    public function getClient() : Client {
+        return $this->client;
+    }
+
+    public function setClient(Client $client) : void {
+        $this->client = $client;
     }
 
     public function getUtilisateur() : Utilisateur {
         return $this->utilisateur;
     }
+
     public function setUtilisateur(Utilisateur $utilisateur) : void {
         $this->utilisateur = $utilisateur;
+    }
+
+    public function getModePaiement() : ModePaiement {
+        return $this->modeDePaiement;
+    }
+
+    public function setModePaiement(ModePaiement $modeDePaiement) : void {
+        $this->modeDePaiement = $modeDePaiement;
+    }
+
+    public function getLignesCommande() : array {
+        return $this->lignesCommande;
+    }
+
+    public function ajouterLigneCommande(LigneCommande $ligneCommande) : void {
+        $this->lignesCommande[] = $ligneCommande;
     }
 }

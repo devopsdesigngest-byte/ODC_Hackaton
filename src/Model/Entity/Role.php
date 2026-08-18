@@ -1,27 +1,36 @@
 <?php
+require_once "Utilisateur.php"; 
+// utilisons autologue pour eviter naviGation circulaire
 
 class Role {
     private int $id;
     private string $nom_role;
+    private array $utilisateurs = [];
 
-    public function __construct(int $id, string $nom_role) {
+    public function __construct(int $id, string $nom_role = 'Admin Boutique'){
         $this->id = $id;
         $this->nom_role = $nom_role;
+        $this->utilisateurs = [];
     }
 
     public function getId() : int {
         return $this->id;
     }
-
     public function setId(int $id) : void {
-        $this->id = $id;
+        if($id > 0)
+            $this->id = $id;
+    }
+
+    public function getUtilisateurs() : array {
+        return $this->utilisateurs;
     }
 
     public function getNomRole() : string {
         return $this->nom_role;
     }
-
     public function setNomRole(string $nom_role) : void {
-        $this->nom_role = $nom_role;
+        if($nom_role == 'Admin Boutique' || $nom_role == 'Chargé de Vente' || $nom_role == 'Chargé de Stock' || $nom_role == 'Inventaire')
+            $this->nom_role = $nom_role;
     }
+    
 }

@@ -1,5 +1,8 @@
 <?php 
 
+require_once "LigneCommande.php";
+require_once "LigneApprovisionnement.php";
+
 class Produit {
     
     private int $id;
@@ -7,11 +10,16 @@ class Produit {
     private float $prix_vente;
     private int $stock_initial;
 
+    private array $lignesCommande = [];
+    private array $lignesApprovisionnement = [];
+
     public function __construct(int $id, string $libelle, float $prix_vente, int $stock_initial) {
         $this->id = $id;
         $this->libelle = $libelle;
         $this->prix_vente = $prix_vente;
         $this->stock_initial = $stock_initial;
+        $this->lignesCommande = [];
+        $this->lignesApprovisionnement = [];
     }
 
     public function getId() : int {
@@ -44,5 +52,21 @@ class Produit {
 
     public function setStockInitial(int $stock_initial) : void {
         $this->stock_initial = $stock_initial;
+    }
+
+    public function getLignesCommande() : array {
+        return $this->lignesCommande;
+    }
+
+    public function ajouterLigneCommande(LigneCommande $ligneCommande) : void {
+        $this->lignesCommande[] = $ligneCommande;
+    }
+
+    public function getLignesApprovisionnement() : array {
+        return $this->lignesApprovisionnement;
+    }
+
+    public function ajouterLigneApprovisionnement(LigneApprovisionnement $ligneApprovisionnement) : void {
+        $this->lignesApprovisionnement[] = $ligneApprovisionnement;
     }
 }
