@@ -7,14 +7,14 @@ require_once dirname(__DIR__) . "/Entity/Fournisseur.php";
 
 class FournisseurRepository {
 
-    public function saveFournisseur(string $nom, string $email, string $numero_telephone, string $adresse): int {
+    public static function saveFournisseur(string $nom, string $email, string $numero_telephone, string $adresse): int {
         $sql = "INSERT INTO fournisseurs(nom, email, numero_telephone, adresse)
                 VALUES (:nom, :email, :numero_telephone, :adresse)";
 
         return Database::executeUpdate($sql, [':nom' => $nom, ':email' => $email, ':numero_telephone' => $numero_telephone, ':adresse' => $adresse]);
     }
 
-    public function getAllFournisseur(): array {
+    public static function getAllFournisseur(): array {
         $sql = "SELECT * FROM fournisseurs";
         $lignes = Database::query($sql, false);
 

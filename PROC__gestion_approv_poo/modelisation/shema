@@ -1,0 +1,5 @@
+Fournisseur(id SERIAL PRIMARY KEY, nom VARCHAR Obligatoire, telephone VARCHAR UNIQUE Obligatoire, adresse VARCHAR Obligatoire)
+Approvisionnement(id SERIAL PRIMARY KEY, refBL VARCHAR Obligatoire UNIQUE, date DATE DEFAULT CURRENT_DATE, statut_id INT, fournisseur_id INT)
+Statut(id SERIAL PRIMARY KEY, nom VARCHAR Obligatoire UNIQUE check("encours, receptionner)) 
+Article(id SERIAL PRIMARY KEY, libelle VARCHAR NOT NULL, prixAchat NUMERIC(10, 2), qteStock INTEGER positif, fournisseur_id INT)
+LigneAppro(id SERIAL PRIMARY KEY, prixAchatReel NUMERIC(10, 2), qteAppro qteStock INTEGER positif, qteRecue qteStock INTEGER positif, article_id INT, approv_id INT)

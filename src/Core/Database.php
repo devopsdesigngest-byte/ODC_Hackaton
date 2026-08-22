@@ -11,7 +11,7 @@ class Database {
     private function __construct() {
     }
 
-    public static function getConnection(): PDO {
+    public static function getConnection() : PDO {
         if(self::$connection === null) {
             try {
                 self::$connection = new PDO('pgsql:host=localhost; port=5432; dbname=odc_hackaton', 'postgres', '12345');
@@ -22,7 +22,6 @@ class Database {
                 self::$connection->exec('PRAGMA foreign_keys = ON');
             }
         }
-
         return self::$connection;
     }
 

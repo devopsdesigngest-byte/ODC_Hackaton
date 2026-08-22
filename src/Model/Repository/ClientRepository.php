@@ -7,7 +7,7 @@ require_once dirname(__DIR__) . "/Entity/Client.php";
 
 class ClientRepository {
 
-    public function getAllClient(): array {
+    public static function getAllClient(): array {
         $sql = "SELECT * FROM clients";
         $lignes = Database::query($sql, false);
 
@@ -20,7 +20,7 @@ class ClientRepository {
         return $clients; 
     }
 
-    public function saveClient(string $nom, string $prenom, string $email, string $numero_telephone, float $limite_credit): int {
+    public static function saveClient(string $nom, string $prenom, string $email, string $numero_telephone, float $limite_credit): int {
         $sql = "INSERT INTO clients(nom, prenom, email, numero_telephone, limite_credit)
             VALUES (:nom, :prenom, :email, :numero_telephone, :limite_credit)";
 
@@ -33,7 +33,7 @@ class ClientRepository {
         ]);
     }
 
-    public function getNombreClient(): int {
+    public static function getNombreClient(): int {
         $sql = "SELECT COUNT(*) AS nombre FROM clients";
         $ligne = Database::query($sql);
 
