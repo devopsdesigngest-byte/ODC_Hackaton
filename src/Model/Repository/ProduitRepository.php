@@ -1,105 +1,46 @@
 <?php
 
-use App\Core\Database;
+namespace App\Model\Repository;
 
-require_once dirname(__DIR__). "/../Core/Database.php";
-require_once dirname(__DIR__). "/Entity/Produit.php";
+use App\Core\Database as db;
+use App\Core\Debug as DD;
+use App\Model\Entity\Produit as P;
+use App\Model\DTO\ProduitDTO as PDTO;
 
-class ProduitRepository {
+class ProduitRepository
+{
+    public static function getAllProduits() : array {
+        $sql = "SELECT p.libelle, p.prix_vente, p.stock_initial From produits p ORDER BY p.id DESC;";
+        $datas = db::query($sql, false);
 
-    public static function saveProduit(string $libelle, float $prixVente, int $stockInitial) : int {
+        $resultats = array_map(function($data){
+            return P::toEntity($data);
+        }, $datas);      
+        return $resultats;
+    } 
+
+    public static function getNreProduits() : int {
+        $sql = "SELECT COUNT(p.id) OVER() AS nbrProd FROM produits p";
+        $data = db::query($sql);
+        return (int) $data->nbrprod;        
+    } 
+
+    public static function valeurStockTotal() : int {
+        $sql = "SELECT SUM(p.prix_vente * p.stock_initial) OVER() AS vst FROM produits p";
+        $data = db::query($sql);
+        return (int) $data->vst;        
+    } 
+
+    public static function saveProduit(PDTO $produit): int
+    {
         $sql = "INSERT INTO produits(libelle, prix_vente, stock_initial)
-                VALUES (:libelle, :prix_vente, :stock_initial)";
-        return Database::executeUpdate($sql, [':libelle' => $libelle, ':prix_vente' => $prixVente, ':stock_initial' => $stockInitial]);
-    }
-
-    public static function getAllProduit() : array {
-        $sql = "SELECT * FROM produits";
-        $lignes = Database::query($sql, false);
-        $produits = [];
-        foreach ($lignes as $ligne) {
-            $produits[] = new Produit($ligne['id'], $ligne['libelle'], $ligne['prix_vente'], $ligne['stock_initial']);
-        }
-        return $produits;
-    }
-
-    public static function getValeurStock() : float {
-        $sql = "SELECT SUM(prix_vente * stock_initial) AS valeur FROM produits";
-        $result = Database::query($sql);
-        return (float) $result['valeur'];
-    }
-
-    public static function seuilProduit() : int {
-        $sql = "SELECT COUNT(*) AS nombre FROM produits WHERE stock_initial <= 5";
-        $result = Database::query($sql);
-        return (int) $result['nombre'];
-    }
-
-    public static function getNbrProduit() : int {
-        $sql = "SELECT COUNT(*) AS nombre FROM produits";
-        $result = Database::query($sql);
-        return (int) $result['nombre'];
-    }
-
-    public static function diminuerStock(int $produitId, int $quantite) : int {
-        $sql = "UPDATE produits SET stock_initial = stock_initial - :quantite
-                WHERE id = :produitId AND stock_initial >= :quantite";
-        return Database::executeUpdate($sql, [':produitId' => $produitId, ':quantite' => $quantite]);
+        VALUES(:libelle, :prix_vente, :stock_initial)";
+        $datas = [
+            'libelle' => $produit->libelle,
+            'prix_vente' => $produit->prix_vente,
+            'stock_initial' => $produit->stock_initial
+        ];
+        db::executeUpdate($sql, $datas);
+        return (int) 0;
     }
 }
-
-
-
-// use App\Core\Database;
-
-// require_once dirname(__DIR__). "/../Core/Database.php";
-// require_once dirname(__DIR__). "/Entity/Produit.php";
-
-// class ProduitRepository {
-    
-//     private Database $database;
-
-//     public function __construct() {
-//         $this->database = Database::getInstance();
-//     }
-
-//     public function saveProduit(string $libelle, float $prixVente, int $stockInitial) : int {
-//         $sql = "INSERT INTO produits(libelle, prix_vente, stock_initial)
-//                 VALUES (:libelle, :prix_vente, :stock_initial)";
-//         return $this->database->executeUpdate($sql, [':libelle' => $libelle, ':prix_vente' => $prixVente, ':stock_initial' => $stockInitial]);
-//     }
-
-//     public function getAllProduit() : array {
-//         $sql = "SELECT * FROM produits";
-//         $lignes = $this->database->query($sql, false);
-//         $produits = [];
-//         foreach ($lignes as $ligne) {
-//             $produits[] = new Produit($ligne['id'], $ligne['libelle'], $ligne['prix_vente'], $ligne['stock_initial']);
-//         }
-//         return $produits;
-//     }
-
-//     public function getValeurStock() : float {
-//         $sql = "SELECT SUM(prix_vente * stock_initial) AS valeur FROM produits";
-//         $result = $this->database->query($sql);
-//         return (float) $result['valeur'];
-//     }
-
-//     public function seuilProduit() : int {
-//         $sql = "SELECT COUNT(*) AS nombre FROM produits WHERE stock_initial <= 5";
-//         $result = $this->database->query($sql);
-//         return (int) $result['nombre'];
-//     }
-
-//     public function getNbrProduit() : int {
-//         $sql = "SELECT COUNT(*) AS nombre FROM produits";
-//         $result = $this->database->query($sql);
-//         return (int) $result['nombre'];
-//     }
-
-//     public function diminuerStock(int $produitId, int $quantite) : int {
-//         $sql = "UPDATE produits SET stock_initial = stock_initial - :quantite
-//                 WHERE id = :produitId AND stock_initial >= :quantite";
-//         return $this->database->executeUpdate($sql, [':produitId' => $produitId, ':quantite' => $quantite]);
-//     }
-// }

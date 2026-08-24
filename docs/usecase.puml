@@ -1,0 +1,197 @@
+@startuml usecase
+left to right direction
+actor "utilisateur" as u
+
+rectangle "gestion produit"{
+    usecase "enregistrer vente" as EV
+    usecase "enregistrer client" as EC
+    usecase "enregistrer produit" as EP
+    usecase "lister commandes" as LC
+    usecase "annuler commande" as AC
+    usecase "livrer commande" as LivC
+    usecase "lister produit" as LS
+    usecase "selectionner client" as SC
+    usecase "Ajouter articles dans vente" as AV
+    usecase "lister Produits avec stock critique" as LPS
+    usecase "afficher statistiques" as ASC
+    usecase "ventes validees" as VV
+    usecase "nombre de commandes" as TC
+    usecase " nombre de commandes en attente" as TCA
+    usecase " nombre de produits en alerte stock" as TCAS
+}
+
+u->EV
+u->EC
+u->EP
+u->LC
+u->LPS
+u->ASC
+ASC ..> VV: <<include>>
+ASC ..> TCA: <<include>>
+ASC ..> TC: <<include>>
+ASC ..> TCAS: <<include>>
+LC<..LivC : <<extend>>
+LC<..AC : <<extend>>
+LC<..LS : <<extend>>
+EV ..>SC: <<include>>
+EV ..>AV: <<include>>
+
+
+
+@enduml
+
+
+
+@startuml StoreManagerPro
+
+actor utilisateur as u
+
+left to right direction
+
+rectangle "StoreManagerPro Gestion vent" {
+
+    usecase "voir stats dette" as vsd
+
+    usecase "lister dette active" as ld
+    usecase "voir article" as va
+    usecase "paiement" as p
+    usecase "versement" as v
+    usecase "rembourser dette" as rd
+    usecase "selectionner mode paiement" as smp
+
+    usecase "changer statut" as cs
+
+    usecase "rechercher client" as rc
+
+    u --> ld
+
+    ld <.. va : <<extend>>
+    ld <.. rc : <<extend>>
+    ld <.. vsd : <<extend>>
+
+    ld <.. p : <<extend>>
+    p ..> v : <<include>>
+    p ..> cs : <<include>>
+
+    ld <.. rd : <<extend>>
+    rd ..> smp : <<include>>
+
+
+
+    ' usecase "enregistrer nouvelle vente" as nv 
+    '     usecase "selectionner acheteur" as sac
+    '     usecase "selectionner article" as sar
+    '     usecase "selectionner mode paiement" as smp
+    '     usecase "verser avance" as vc 
+    '     usecase "ajouter quantite" as aq 
+
+    
+
+    ' usecase "lister vente commande" as lvc 
+    '     usecase "voir details facture" as vdf
+    '     usecase "voir stats vente" as vsv 
+ 
+
+    ' u-->nv
+    ' nv ..>sac:<<include>>
+    ' nv ..>sar:<<include>>
+    ' nv ..>smp:<<include>>
+    ' nv <..vc:<<extends>>
+    ' nv ..>aq:<<include>>
+
+
+    ' u--> lvc
+    ' lvc <..vdf:<<extends>>
+    ' lvc <..vsv:<<extends>>
+
+}
+
+@enduml
+
+
+    
+
+
+
+@startuml usecaseFournisseur 
+
+actor utilisateur as U
+
+left to right direction
+
+rectangle "Fournisseur"{
+    usecase "Lister produits en faible stock" as LPF 
+    usecase "lister Rapprochement entree" as LRE
+    usecase "lister approvisionnement" as LLL
+    usecase "enregistrer  approvisionnement" as EC
+    usecase "enregitrer fournisseur" as CF  
+    ' usecase "voir tout" as VT  
+    ' usecase "voir en cours" as VC
+    usecase "filtrer sur statut" as FT
+    usecase "filtrer sur Fournisseur" as FF
+    usecase "Voir articles d'un approvisionnement " as VA
+    usecase "receptionner approvisionnement " as RC
+    usecase "faire un approvisionnement sur un produit " as FA
+
+
+
+U --> LLL
+U --> LPF
+U --> LRE
+U --> EC
+U --> CF
+
+
+LLL <..FT:<<extend>>
+LLL <..FF:<<extend>>
+LLL <..VA:<<extend>>
+LLL <..RC:<<extend>>
+LPF <..FA:<<extend>>
+' LLL <..VC:<<extend>>
+' LLL <..VR:<<extend>>
+' LLL <..R:<<extend>>
+
+
+    
+}
+
+
+' actor utilisateur as U
+' actor client as C
+
+' left to right direction                              
+
+' rectangle "gestionCommande"{
+'     usecase  "lister Commandes" as  lc 
+'     usecase  "lister StockCritique" as  lsc 
+'     usecase  "enregistrer Ventes" as  EV
+'     usecase  "enregistrer Articles" as  EA
+'     usecase  "enregistrer Client" as  EC
+'     usecase  "selection client Acheteur" as  SCA
+'     usecase  "selection article" as  SA
+'     usecase  "selection mode" as  SM
+'     usecase  "quantite par produit" as  QP  
+
+' }
+
+' U--> lc
+' U--> lsc
+' U--> EA
+' U--> EC
+' U--> EV
+
+' EV ..>SCA:<<include>>
+' EV ..>SA:<<include>>
+' EV ..>SM:<<include>>
+' EV <..QP:<<extend>>
+' U <|..C
+
+
+
+
+
+
+@enduml
+
+
+

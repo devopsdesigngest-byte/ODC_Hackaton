@@ -1,0 +1,509 @@
+@startuml gestionventesDettes 
+
+class Client {
+    id 
+    nom 
+    prenom 
+    telephone
+    adresse
+}
+
+class ModePaiement {
+    id 
+    nom 
+}
+
+class ModeReglement {
+    id 
+    nom 
+}
+
+class Statut{
+    id 
+    nom 
+} 
+
+class Article {
+    id 
+    libelle 
+    prixVente 
+    qteStock
+}
+
+class LigneVente {
+    id 
+    prixReel 
+    qte
+}
+
+class Vente {
+    id 
+    dat 
+    montantInit
+    montantPaye    
+    ' resteDue peut etre calculer aussi et pas stock 
+
+}    
+
+class Paiement {
+    id 
+    montant 
+    dat 
+}    
+
+
+
+Article"1".."0..*"LigneVente
+Vente"1".."0..*"LigneVente
+Vente"0..*".."1"Client
+Vente"0..*".."1"Statut
+Vente"0..*".."1"ModePaiement
+Vente"0..*".."1"ModeReglement
+Vente"1".."0..*"Paiement
+ModeReglement"1".."0..*"Paiement
+
+
+
+
+
+
+
+
+
+@startuml Diagramme_Classe
+
+class Utilisateur {
+    - id : int
+    - nomComplet : String
+    - email : String
+    - motDePasse : String
+    - adresse : String
+    - numeroTelephone : String
+}
+
+class Role {
+    - id : int
+    - nomRole : String
+}
+
+class Client {
+    - id : int
+    - nom : String
+    - prenom : String
+    - email : String
+    - numeroTelephone : String
+    - limiteCredit : float
+}
+
+class Commande {
+    - id : int
+    - dateCommande : Date
+    - montantTotal : float
+    - montantAvance : float
+}
+
+class Dette {
+    - id : int
+    - montantInitial : float
+    - montantRestant : float
+    - dateCreation : Date
+    - dateEcheance : Date
+    - statut : String
+}
+
+class LigneCommande {
+    - id : int
+    - quantite : int
+    - prixUnitaire : float
+    - sousTotal : float
+}
+
+class ModePaiement {
+    - id : int
+    - libelle : String
+}
+
+class Reglement {
+    - id : int
+    - dateReglement : Date
+    - montantVerse : float
+}
+
+class Produit {
+    - id : int
+    - libelle : String
+    - prixVente : float
+    - stockInitial : int
+}
+
+class Fournisseur {
+    - id : int
+    - nom : String
+    - email : String
+    - numeroTelephone : String
+    - adresse : String
+}
+
+class StatutAppro {
+    - id : int
+    - libelle : String
+}
+
+class Approvisionnement {
+    - id : int
+    - referenceBon : String
+    - dateApprovisionnement : Date
+}
+
+class LigneApprovisionnement {
+    - id : int
+    - quantiteCommandee : int
+    - quantiteRecue : int
+    - prixUnitaire : float
+}
+
+
+Utilisateur "0..*" --> "1" Role
+
+Client "1" --> "0..*" Commande
+Commande "0..*" --> "1" Utilisateur
+Commande "0..*" --> "1" ModePaiement
+
+Commande "1" --> "0..*" LigneCommande
+Produit "1" --> "0..*" LigneCommande
+
+Commande "1" --> "0..1" Dette
+Dette "1" --> "0..*" Reglement
+Reglement "0..*" --> "1" ModePaiement
+
+Approvisionnement "0..*" --> "1" Fournisseur
+Approvisionnement "1" --> "0..*" LigneApprovisionnement
+Produit "1" --> "0..*" LigneApprovisionnement
+
+StatutAppro "1" --> "0..*" Approvisionnement
+Approvisionnement "0..*" --> "1" Utilisateur
+
+@enduml
+
+
+
+
+
+
+class Client {
+    id
+    prenom
+    nom
+    telephone
+    mail
+}
+
+class Vente {
+    id 
+    montantTotal 
+    date
+    status
+    
+}
+
+class PaiementMode{
+    id
+    nomMode
+}
+
+class LigneVente{
+    id
+    quantiteVente
+    prixVente
+}
+
+class Produit{
+    id
+    libelle
+    prixUnitaire
+    qteStock
+}
+
+Client "1" -- "0..*"Vente
+LigneVente "0..*" --"1"Vente
+PaiementMode "1" -- "0..*"Vente
+LigneVente "0..*"-- "1"Produit
+
+
+
+
+
+
+
+
+
+@startuml diagrammedeclasse
+
+class Fournisseur{
+    id
+    nom 
+    telephone 
+    adresse 
+
+}
+
+class Approvisionnement{
+    id
+    refBL 
+    date
+    
+}
+
+class Statut{
+    id 
+    nom 
+} 
+class Article{
+    id 
+    libelle 
+    prixAchat
+    qteStock
+
+}
+class LigneAppro{
+    id 
+    prixAchatReel
+    qteAppro
+    qteRecue
+}
+
+Article"1".."0..*"LigneAppro
+Approvisionnement"1".."0..*"LigneAppro
+Approvisionnement"0..*".."1"Fournisseur
+Approvisionnement"0..*".."1"Statut
+Fournisseur"1".."0..*"Article
+
+
+
+@enduml
+
+
+
+
+
+
+@startuml dashboard
+left to right direction
+actor "Admin" as A
+
+rectangle "dashboard" {
+    usecase "Se connecter" as sc
+    usecase "lister stats partiel" as lsp
+    usecase "lister stats agregat" as lsa
+}
+
+
+A-> lsp
+A-> lsa
+
+lsp ..> sc:<<include>>
+lsa ..> sc:<<include>>
+
+
+
+@enduml
+
+
+
+
+
+@startuml approvisionnement
+
+top to bottom direction
+
+actor "Admin" as A
+actor "Charge Stock" as CS
+
+rectangle "Gestion Appro"{
+    usecase "lister appro"  as lp
+    usecase "calculer stats" as cs
+
+    usecase "lister ligne appro" as la
+    usecase "receptionner appro" as r
+
+    usecase "lister produit" as lpd
+    usecase "valider appro" as va
+
+    usecase "Se connecter" as sc
+}
+
+A ..|> CS
+
+CS -> lp
+CS -> cs
+
+lp <.. r:<<extend>>
+lp <.. la:<<extend>>
+
+lp ..> sc:<<include>>
+cs ..> sc:<<include>>
+
+r ..> lpd:<<include>>
+r ..> va:<<include>>
+
+@enduml
+
+
+
+
+@startuml GestionDettes
+
+left to right direction
+
+actor "Admin" as AB
+actor "Charge vente" as cv
+
+rectangle "Admin GestionDettesVentes" {
+
+    usecase "Lister stats" as ls
+    usecase "Lister dette active" as lda
+
+    usecase "Lister article" as la
+    usecase "Lister paiement" as lp
+    usecase "Rembourser dette" as rd
+
+    usecase "Sélectionner mode paiement" as smp
+    usecase "Ajouter montant" as am
+
+    usecase "se connecter" as sc
+
+}
+
+cv --> ls
+cv --> lda
+
+ls --> sc
+lda --> sc
+
+lda <--  la : <<extend>>
+lda <-- lp : <<extend>>
+lda <-- rd : <<extend>>
+
+rd ..> smp : <<include>>
+rd ..> am : <<include>>
+
+AB ..|> cv
+
+
+@enduml
+
+
+
+
+
+
+@startuml inventaire
+
+left to right direction 
+
+actor "Inventaire" as inv
+actor "Charge Stock" as cs
+actor "Admin" as ad
+
+rectangle "Inventaire" {
+
+    usecase "Enregistrer produit" as ep
+    usecase "Enregistrer client" as ec
+    usecase "Enregistrer fournisseur" as ef
+
+    usecase "lister stats" as ls
+
+    usecase "lister produit" as lp
+    usecase "lister client" as lc
+    usecase "lister fournisseur" as lf
+
+    usecase "filtrer produit" as fp
+    
+    usecase "Connecter " as c 
+}
+
+inv --> ep
+inv --> ef
+inv --> ec
+
+inv --> lp
+inv --> lf
+inv --> lc
+
+ep ..|> c : <<include>> 
+ec ..|> c : <<include>>
+ef ..|> c : <<include>> 
+lp ..|> c : <<include>>
+lc ..|> c : <<include>>
+lf ..|> c : <<include>>
+ls ..|> c : <<include>>
+
+inv --> ls
+
+lp <.. fp : <<extends>>
+
+ad ..|> cs
+
+cs ..|> inv
+
+@enduml
+
+
+
+
+
+@startuml "Administration des ventes"
+
+left to right direction
+
+actor "Administrateur" as Admin
+actor "Agent commercial" as Agent
+
+rectangle "Système de gestion commerciale" {
+
+    package "Tableau de bord" {
+        usecase "Afficher les statistiques" as Stats
+        usecase "Consulter les paiements" as Paiements
+        usecase "Suivre les créances clients" as Creances
+        usecase "Consulter les ventes" as Ventes
+    }
+
+    package "Gestion des ventes" {
+        usecase "Créer une vente" as Vente
+        usecase "Choisir le client" as Client
+        usecase "Ajouter un produit" as Produit
+        usecase "Choisir le produit" as ChoixProduit
+        usecase "Indiquer la quantité" as Quantite
+        usecase "Choisir le paiement" as ModePaiement
+        usecase "Indiquer le montant payé" as Montant
+    }
+
+    package "Commandes" {
+        usecase "Rechercher une commande" as Recherche
+        usecase "Consulter le détail" as Detail
+    }
+}
+
+Agent --> Stats
+Agent --> Vente
+Agent --> Recherche
+
+Vente ..> Client : <<include>>
+Vente ..> Produit : <<include>>
+Vente ..> ModePaiement : <<include>>
+Vente ..> Montant : <<include>>
+
+Produit ..> ChoixProduit : <<include>>
+Produit ..> Quantite : <<include>>
+
+Paiements ..> Stats : <<extend>>
+Creances ..> Stats : <<extend>>
+Ventes ..> Stats : <<extend>>
+
+Detail ..> Recherche : <<extend>>
+
+Admin --|> Agent
+
+@enduml
+
+

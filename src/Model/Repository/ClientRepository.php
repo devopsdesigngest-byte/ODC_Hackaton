@@ -1,85 +1,45 @@
 <?php
 
-use App\Core\Database;
+namespace App\Model\Repository;
 
-require_once dirname(__DIR__) . "/../Core/Database.php";
-require_once dirname(__DIR__) . "/Entity/Client.php";
+use App\Core\Database as db;
+use App\Core\Debug as DD;
+use App\Model\Entity\Client as C;
 
-class ClientRepository {
+class ClientRepository
+{
+    public static function getAllClients(): array
+    {
+        $sql = "SELECT c.nom || ' ' || c.prenom as nomcomplet, c.numero_telephone, c.limite_credit 
+        FROM clients c ORDER BY c.id DESC;";
+        $datas = db::query($sql, false);
 
-    public static function getAllClient(): array {
-        $sql = "SELECT * FROM clients";
-        $lignes = Database::query($sql, false);
-
-        $clients = [];
-
-        foreach ($lignes as $ligne) {
-            $clients[] = new Client($ligne['id'], $ligne['nom'], $ligne['prenom'], $ligne['email'], $ligne['numero_telephone'], $ligne['limite_credit']);
-        }
-
-        return $clients; 
+        $resultats = array_map(function ($data) {
+            return C::toEntity($data);
+        }, $datas);
+        return $resultats;
     }
 
-    public static function saveClient(string $nom, string $prenom, string $email, string $numero_telephone, float $limite_credit): int {
+    public static function getNreClients(): int
+    {
+        $sql = "SELECT COUNT(c.id) OVER() AS nbrClient FROM clients c";
+        $data = db::query($sql);
+        return (int) $data->nbrclient;
+    }
+
+
+    public static function saveClient(array $client): int
+    {
         $sql = "INSERT INTO clients(nom, prenom, email, numero_telephone, limite_credit)
-            VALUES (:nom, :prenom, :email, :numero_telephone, :limite_credit)";
-
-        return Database::executeUpdate($sql, [
-            ':nom' => $nom,
-            ':prenom' => $prenom,
-            ':email' => $email,
-            ':numero_telephone' => $numero_telephone,
-            ':limite_credit' => $limite_credit
-        ]);
-    }
-
-    public static function getNombreClient(): int {
-        $sql = "SELECT COUNT(*) AS nombre FROM clients";
-        $ligne = Database::query($sql);
-
-        return (int) $ligne['nombre'];
+        VALUES(:nom, :prenom, :email, :numero_telephone, :limite_credit)";
+        $client = [
+            ':nom' => $client['nom'],
+            ':prenom' => $client['prenom'],
+            ':email' => $client['email'],
+            ':numero_telephone' => $client['numero_telephone'],
+            ':limite_credit' => $client['limite_credit']
+        ];
+        db::executeUpdate($sql, $client);
+        return (int) 0;
     }
 }
-
-
-
-
-
-
-
-// use App\Core\Database;
-
-// require_once dirname(__DIR__) . "/../Core/Database.php";
-// require_once dirname(__DIR__) . "/Entity/Client.php";
-
-// class ClientRepository {
-//     private Database $database;
-
-//     public function __construct(){
-//         $this->database = Database::getInstance();
-//     }
-
-//     function getAllClient() : array {
-//         $sql = "SELECT * FROM clients";
-//         $lignes = $this->database->query($sql, false);
-//         $clients = [];
-//         foreach ($lignes as $ligne) {
-//             $clients[] = new Client($ligne['id'], $ligne['nom'], $ligne['prenom'], $ligne['email'], $ligne['numero_telephone'], $ligne['limite_credit']);
-//         }
-//         return $clients; 
-//     }  
-           
-//     public function saveClient(string $nom, string $prenom, string $email, string $numero_telephone, float $limite_credit): int {
-//         $sql = "INSERT INTO clients(nom, prenom, email, numero_telephone, limite_credit)
-//             VALUES (:nom, :prenom, :email, :numero_telephone, :limite_credit)";
-//         return $this->database->executeUpdate($sql, [':nom' => $nom, ':prenom' => $prenom, ':email' => $email, ':numero_telephone' => $numero_telephone, ':limite_credit' => $limite_credit]);
-//     }  
-    
-//     public function getNombreClient(): int {
-//         $sql = "SELECT COUNT(*) AS nombre FROM clients";
-//         $ligne = $this->database->query($sql);
-//         return (int) $ligne['nombre'];
-//     }
-    
-
-// }

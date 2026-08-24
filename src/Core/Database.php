@@ -1,122 +1,163 @@
 <?php
-
-namespace App\Core;
-
-use PDO;
-use PDOException;
-
-class Database {
-    private static ?PDO $connection = null;
-
-    private function __construct() {
-    }
-
-    public static function getConnection() : PDO {
-        if(self::$connection === null) {
-            try {
-                self::$connection = new PDO('pgsql:host=localhost; port=5432; dbname=odc_hackaton', 'postgres', '12345');
-                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch(PDOException $e) {
-                self::$connection = new PDO('sqlite:' . __DIR__ . '/../../erp.db');
-                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                self::$connection->exec('PRAGMA foreign_keys = ON');
-            }
-        }
-        return self::$connection;
-    }
-
-    public static function query(string $sql, bool $single = true) {
-        $query = self::getConnection()->query($sql);
-        return $single ? ($query->fetch(PDO::FETCH_ASSOC) ?: []) : $query->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function executeQuery(string $sql, array $datas, bool $single = true) {
-        $prepare = self::getConnection()->prepare($sql);
-        $prepare->execute($datas);
-        return $single ? ($prepare->fetch(PDO::FETCH_ASSOC) ?: []) : $prepare->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public static function executeUpdate(string $sql, array $datas): int {
-        $prepare = self::getConnection()->prepare($sql);
-        $prepare->execute($datas);
-        return $prepare->rowCount();
-    }
-}
-
-
-
+// // ============================================================
+// // BASE DE DONNEE OBJET fetchOjt
+// // ============================================================
 
 // namespace App\Core;
 
 // use PDO;
+// use PDOStatement;
 // use PDOException;
 
-// class Database {
-//     private static ?Database $monInstance = null;
-//     private PDO $connection;
+// class Database
+// {
 
-//     private function __construct() {
+//     private function __construct()
+//     {
+//     }
+
+//     private static function getInstance(): PDO|null
+//     {
 //         try {
-//             $this->connection = new PDO('pgsql:host=localhost; port=5432; dbname=odc_hackaton', 'postgres', '12345');
-//             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//         }catch (PDOException $e) {
-//             $this->connection = new PDO('sqlite:' . __DIR__ . '/../../erp.db'); // (dir, 3) je pourrai lutiliser
-//             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//             $this->connection->exec('PRAGMA foreign_keys = ON');
+//             $instance = null;
+//             $dsn = "pgsql:host=localhost;dbname=hackaton";
+//             $instance = new PDO($dsn, "postgres", "12345");
+//             $instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//             return $instance;
+//         } catch (PDOException $e) {
+//             die("Erreur PostgreSQL : " . $e->getMessage());
+//             return null;
 //         }
 //     }
 
-//     public static function getInstance() : Database {
-//         if(self::$monInstance == null)
-//             self::$monInstance = new Database();
-//         return self::$monInstance;
+//     public static function query(string $sql, bool $single = true): mixed
+//     {
+//         $query = self::getInstance()->query($sql);
+//         return $single ? $query->fetch(PDO::FETCH_OBJ) : $query->fetchAll(PDO::FETCH_OBJ);
 //     }
 
-//     public static function getConnection() : PDO {
-//         return $this->connection;
-//     }
-
-//     public function query(string $sql, bool $single = true) {
-//         $query = $this->connection->query($sql);
-//         return $single ? ($query->fetch(PDO::FETCH_ASSOC) ?: []) : $query->fetchAll(PDO::FETCH_ASSOC);
-//     }
-
-//     public function executeQuery(string $sql, array $datas, $single = true){
-//         $prepare = $this->connection->prepare($sql);
+//     private static function prepare(string $sql, array $datas): PDOStatement
+//     {
+//         $prepare = Database::getInstance()->prepare($sql);
 //         $prepare->execute($datas);
-//         return $single ? ($prepare->fetch() ?: []) : $prepare->fetchAll();
+//         return $prepare;
 //     }
 
-//     public function executeUpdate(string $sql, array $datas) : int {
-//         $prepare = $this->connection->prepare($sql);
-//         $prepare->execute($datas);
-//         return $prepare->rowCount();
+//     public static function executeQuery(string $sql, array $datas, bool $single = true): mixed
+//     {
+//         $statement = self::prepare($sql, $datas);
+//         return $single ? $statement->fetch(PDO::FETCH_OBJ) : $statement->fetchAll(PDO::FETCH_OBJ);
 //     }
-    
+
+//     public static function executeUpdate(string $sql, array $datas): int|string
+//     {
+//         $statement = self::prepare($sql, $datas);
+//         return (str_starts_with(strtoupper(trim($sql)), 'INSERT')) ? self::getInstance()->lastInsertId() : $statement->rowCount();
+//     }
+
+//     public static function getAllData(string $tableName): array
+//     {
+//         $sql = "SELECT * FROM $tableName";
+//         return self::query($sql, false);
+//     }
 // }
 
-//     public function query(string $sql, bool $single = true, ?string $class = null) {
-//         $query = $this->connection->query($sql);
-//         if ($class !== null)
-//             return $single ? ($query->fetchObject($class) ?: []) : $query->fetchAll(PDO::FETCH_CLASS, $class);
-//         return $single ? ($query->fetch() ?: []) : $query->fetchAll();
-//     }
-//     public function executeQuery(string $sql, array $datas, bool $single = true, ?string $class = null) {
-//         $prepare = $this->connection->prepare($sql);
-//         $prepare->execute($datas);
-//         if ($class !== null)
-//             return $single ? ($prepare->fetchObject($class) ?: []) : $prepare->fetchAll(PDO::FETCH_CLASS, $class);
-//         return $single ? ($prepare->fetch() ?: []) : $prepare->fetchAll();
-//     }
-//     public function executeUpdate(string $sql, array $datas): int {
-//         $prepare = $this->connection->prepare($sql);
-//         $prepare->execute($datas);
-//         return $prepare->rowCount();
-//     }
 
 
-//     public function getAllProduit(): array {
-//         $sql = "SELECT * FROM produits";
-//         return $this->database->query($sql, false, Produit::class);
-//     }
+namespace App\Core;
 
+use PDO;
+use PDOStatement;
+use PDOException;
+
+class Database
+{
+    private function __construct()
+    {
+    }
+
+    private static function getInstance(): PDO|null
+    {
+        try {
+            $instance = null;
+
+            $dsn = "pgsql:host=localhost;dbname=hackaton";
+
+            $instance = new PDO($dsn, "postgres", "12345");
+
+            $instance->setAttribute(
+                PDO::ATTR_ERRMODE,
+                PDO::ERRMODE_EXCEPTION
+            );
+
+            return $instance;
+
+        } catch (PDOException $e) {
+            die("Erreur PostgreSQL : " . $e->getMessage());
+        }
+    }
+
+    public static function query(
+        string $sql,
+        bool $single = true
+    ): mixed {
+
+        $query = self::getInstance()->query($sql);
+
+        return $single
+            ? $query->fetch(PDO::FETCH_OBJ)
+            : $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    private static function prepare(
+        string $sql,
+        array $datas
+    ): PDOStatement {
+
+        $prepare = self::getInstance()->prepare($sql);
+
+        $prepare->execute($datas);
+
+        return $prepare;
+    }
+
+    public static function executeQuery(
+        string $sql,
+        array $datas,
+        bool $single = true
+    ): mixed {
+
+        $statement = self::prepare($sql, $datas);
+
+        return $single
+            ? $statement->fetch(PDO::FETCH_OBJ)
+            : $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function executeUpdate(
+        string $sql,
+        array $datas,
+        ?string $sequence = null
+    ): int|string {
+
+        $statement = self::prepare($sql, $datas);
+
+        if (str_starts_with(strtoupper(trim($sql)), 'INSERT')) {
+
+            if ($sequence !== null) {
+                return self::getInstance()->lastInsertId($sequence);
+            }
+
+            return $statement->rowCount();
+        }
+
+        return $statement->rowCount();
+    }
+
+    public static function getAllData(string $tableName): array
+    {
+        $sql = "SELECT * FROM $tableName";
+
+        return self::query($sql, false);
+    }
+}

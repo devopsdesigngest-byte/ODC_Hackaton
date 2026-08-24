@@ -1,7 +1,6 @@
 <?php
 
-require_once "Approvisionnement.php";
-
+namespace App\Model\Entity;
 class StatutAppro {
     private int $id;
     private string $libelle;

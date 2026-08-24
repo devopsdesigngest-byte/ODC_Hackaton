@@ -1,61 +1,35 @@
 <?php
 
-use App\Core\Database;
+namespace App\Model\Repository;
 
-require_once dirname(__DIR__) . "/../Core/Database.php";
-require_once dirname(__DIR__) . "/Entity/Fournisseur.php";
+use App\Core\Database as db;
+use App\Core\Debug as DD;
+use App\Model\Entity\Fournisseur as F;
 
-class FournisseurRepository {
+class FournisseurRepository
+{
+    public static function getAllFournisseurs() : array {
+        $sql = "SELECT f.nom, f.numero_telephone, f.adresse From fournisseurs f ORDER BY f.id DESC;";
+        $datas = db::query($sql, false);
 
-    public static function saveFournisseur(string $nom, string $email, string $numero_telephone, string $adresse): int {
+        $resultats = array_map(function($data){
+            return F::toEntity($data);
+        }, $datas);      
+        return $resultats;
+    } 
+
+
+    public static function saveFournisseur(array $fournisseur) : int {
         $sql = "INSERT INTO fournisseurs(nom, email, numero_telephone, adresse)
-                VALUES (:nom, :email, :numero_telephone, :adresse)";
-
-        return Database::executeUpdate($sql, [':nom' => $nom, ':email' => $email, ':numero_telephone' => $numero_telephone, ':adresse' => $adresse]);
-    }
-
-    public static function getAllFournisseur(): array {
-        $sql = "SELECT * FROM fournisseurs";
-        $lignes = Database::query($sql, false);
-
-        $fournisseurs = [];
-
-        foreach ($lignes as $ligne) {
-            $fournisseurs[] = new Fournisseur($ligne['id'], $ligne['nom'], $ligne['email'], $ligne['numero_telephone'], $ligne['adresse']);
-        }
-
-        return $fournisseurs;
-    }
+        VALUES(:nom, :email, :numero_telephone, :adresse)";
+        $fournisseur = [
+            ':nom' => $fournisseur['nom'], 
+            ':email' => $fournisseur['email'], 
+            ':numero_telephone' => $fournisseur['numero_telephone'], 
+            ':adresse' => $fournisseur['adresse']
+        ];
+        db::executeUpdate($sql, $fournisseur);
+          
+        return (int) 0;
+    } 
 }
-
-
-
-// use App\Core\Database;
-
-// require_once dirname(__DIR__) . "/../Core/Database.php";
-// require_once dirname(__DIR__) . "/Entity/Fournisseur.php";
-
-// class FournisseurRepository {
-    
-//     private Database $database;
-
-//     public function __construct() {
-//         $this->database = Database::getInstance();
-//     }
-
-//     public function saveFournisseur(string $nom, string $email, string $numero_telephone, string $adresse): int {
-//         $sql = "INSERT INTO fournisseurs(nom, email, numero_telephone, adresse)
-//                 VALUES (:nom, :email, :numero_telephone, :adresse)";
-//         return $this->database->executeUpdate($sql, [':nom' => $nom, ':email' => $email, ':numero_telephone' => $numero_telephone, ':adresse' => $adresse]);
-//     }
-
-//     public function getAllFournisseur(): array {
-//         $sql = "SELECT * FROM fournisseurs";
-//         $lignes = $this->database->query($sql, false);
-//         $fournisseurs = [];
-//         foreach ($lignes as $ligne) {
-//             $fournisseurs[] = new Fournisseur($ligne['id'], $ligne['nom'], $ligne['email'], $ligne['numero_telephone'], $ligne['adresse']);
-//         }
-//         return $fournisseurs;
-//     }
-// }

@@ -1,11 +1,14 @@
 <?php 
 
-require_once "LigneCommande.php";
-require_once "LigneApprovisionnement.php";
+namespace App\Model\Entity;
+use App\Model\Entity\LigneCommande;
+use App\Model\Entity\LigneApprovisionnement;
+use stdClass;
+
 
 class Produit {
     
-    private int $id;
+    private ?int $id;
     private string $libelle;
     private float $prix_vente;
     private int $stock_initial;
@@ -13,7 +16,7 @@ class Produit {
     private array $lignesCommande = [];
     private array $lignesApprovisionnement = [];
 
-    public function __construct(int $id, string $libelle, float $prix_vente, int $stock_initial) {
+    public function __construct(string $libelle, float $prix_vente, int $stock_initial, ?int $id = null) {
         $this->id = $id;
         $this->libelle = $libelle;
         $this->prix_vente = $prix_vente;
@@ -22,11 +25,11 @@ class Produit {
         $this->lignesApprovisionnement = [];
     }
 
-    public function getId() : int {
+    public function getId() : ?int {
         return $this->id;
     }
 
-    public function setId(int $id) : void {
+    public function setId(?int $id) : void {
         $this->id = $id;
     }
 
@@ -68,5 +71,14 @@ class Produit {
 
     public function ajouterLigneApprovisionnement(LigneApprovisionnement $ligneApprovisionnement) : void {
         $this->lignesApprovisionnement[] = $ligneApprovisionnement;
+    }
+
+    public static function toEntity(stdClass $obj): self
+    {
+        return new self(
+            libelle: $obj->libelle,
+            prix_vente: $obj->prix_vente,
+            stock_initial: $obj->stock_initial
+        );
     }
 }

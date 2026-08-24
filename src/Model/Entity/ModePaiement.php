@@ -1,7 +1,6 @@
 <?php
 
-require_once "Commande.php";
-require_once "Reglement.php";
+namespace App\Model\Entity;
 
 class ModePaiement {
     private int $id;

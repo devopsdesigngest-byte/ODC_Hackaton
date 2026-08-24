@@ -1,6 +1,5 @@
 <?php
-require_once "Utilisateur.php"; 
-// utilisons autologue pour eviter naviGation circulaire
+namespace App\Model\Entity;
 
 class Role {
     private int $id;

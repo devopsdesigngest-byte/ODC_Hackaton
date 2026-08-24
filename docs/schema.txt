@@ -1,0 +1,20 @@
+clients(id SERIAL, nom VARCHAR NOT NULL, prenom VARCHAR NOT NULL,
+telephone VARCHAR UNIQUE NOT NULL, mail UNIQUE); 
+
+paiementModes(id SERIAL, nomMode VARCHAR NOT NULL UNIQUE);
+
+produits(id SERIAL, libelle VARCHAR UNIQUE NOT NULL, prixUnitaire NUMERIC(10,2), qteStock INTEGER )
+
+ligneVentes(id SERIAL, quantiteVente INTEGER, prixVente NUMERIC(10,2),
+ vente_id INT REFERENCES ventes(id), produit_id INT REFERENCES produits(id))
+
+ventes(id SERIAL, montantTotal NUMERIC(10,2), client_id INT REFERENCES clients(id),
+ paiementMode_id INT REFERENCES paiementMode(id) );
+
+
+
+ Fournisseur(id SERIAL PRIMARY KEY, nom VARCHAR Obligatoire, telephone VARCHAR UNIQUE Obligatoire, adresse VARCHAR Obligatoire)
+Approvisionnement(id SERIAL PRIMARY KEY, refBL VARCHAR Obligatoire UNIQUE, date DATE DEFAULT CURRENT_DATE, statut_id INT, fournisseur_id INT)
+Statut(id SERIAL PRIMARY KEY, nom VARCHAR Obligatoire UNIQUE check("encours, receptionner)) 
+Article(id SERIAL PRIMARY KEY, libelle VARCHAR NOT NULL, prixAchat NUMERIC(10, 2), qteStock INTEGER positif, fournisseur_id INT)
+LigneAppro(id SERIAL PRIMARY KEY, prixAchatReel NUMERIC(10, 2), qteAppro qteStock INTEGER positif, qteRecue qteStock INTEGER positif, article_id INT, approv_id INT)

@@ -1,18 +1,18 @@
 <?php
 
-require_once "Approvisionnement.php";
-
+namespace App\Model\Entity;
+use App\Model\Entity\Approvisionnement;
 class Fournisseur {
     
-    private int $id;
+    private ?int $id;
     private string $nom;
-    private string $email;
-    private string $numero_telephone;
+    private ?string $email;
+    private ?string $numero_telephone;
     private string $adresse;
 
     private array $approvisionnements = [];
 
-    public function __construct(int $id, string $nom, string $email, string $numero_telephone, string $adresse) {
+    public function __construct(string $nom, ?string $numero_telephone = null, string $adresse, ?int $id = null, ?string $email = null) {
         $this->id = $id;
         $this->nom = $nom;
         $this->email = $email;
@@ -45,11 +45,11 @@ class Fournisseur {
         $this->email = $email;
     }
 
-    public function getNumeroTelephone(): string {
+    public function getNumeroTelephone(): ?string {
         return $this->numero_telephone;
     }
 
-    public function setNumeroTelephone(string $numero_telephone): void {
+    public function setNumeroTelephone(?string $numero_telephone): void {
         $this->numero_telephone = $numero_telephone;
     }
 
@@ -67,5 +67,14 @@ class Fournisseur {
 
     public function ajouterApprovisionnement(Approvisionnement $approvisionnement): void {
         $this->approvisionnements[] = $approvisionnement;
+    }
+
+    public static function toEntity(\stdClass $obj): self
+    {
+        return new self(
+            nom: $obj->nom,
+            numero_telephone: $obj->numero_telephone,
+            adresse: $obj->adresse
+        );
     }
 }

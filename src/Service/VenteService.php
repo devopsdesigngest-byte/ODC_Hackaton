@@ -1,46 +1,46 @@
 <?php
 
-use App\Core\Database;
+// use App\Core\Database;
 
-require_once dirname(__DIR__) . "/Core/Database.php";
-require_once dirname(__DIR__) . "/Model/Repository/ProduitRepository.php";
-require_once dirname(__DIR__) . "/Model/Repository/CommandeRepository.php";
+// require_once dirname(__DIR__) . "/Core/Database.php";
+// require_once dirname(__DIR__) . "/Model/Repository/ProduitRepository.php";
+// require_once dirname(__DIR__) . "/Model/Repository/CommandeRepository.php";
 
-class VenteService {
+// class VenteService {
 
-    public static function enregistrerVente(int $clientId, int $utilisateurId, int $modePaiementId, float $montantAvance, array $lignes) : int {
-        Database::beginTransaction();
+//     public static function enregistrerVente(int $clientId, int $utilisateurId, int $modePaiementId, float $montantAvance, array $lignes) : int {
+//         Database::beginTransaction();
 
-        try {
-            $montantTotal = 0;
+//         try {
+//             $montantTotal = 0;
 
-            foreach ($lignes as $ligne) {
-                $montantTotal += $ligne['sousTotal'];
-            }
+//             foreach ($lignes as $ligne) {
+//                 $montantTotal += $ligne['sousTotal'];
+//             }
 
-            $commandeId = CommandeRepository::saveCommande($montantTotal, $montantAvance, $clientId, $utilisateurId, $modePaiementId);
+//             $commandeId = CommandeRepository::saveCommande($montantTotal, $montantAvance, $clientId, $utilisateurId, $modePaiementId);
 
-            foreach ($lignes as $ligne) {
-                CommandeRepository::saveLigneCommande($ligne['quantite'], $ligne['prixUnitaire'], $ligne['sousTotal'], $commandeId, $ligne['produitId']);
-                ProduitRepository::diminuerStock($ligne['produitId'], $ligne['quantite']);
-            }
+//             foreach ($lignes as $ligne) {
+//                 CommandeRepository::saveLigneCommande($ligne['quantite'], $ligne['prixUnitaire'], $ligne['sousTotal'], $commandeId, $ligne['produitId']);
+//                 ProduitRepository::diminuerStock($ligne['produitId'], $ligne['quantite']);
+//             }
 
-            $montantRestant = $montantTotal - $montantAvance;
+//             $montantRestant = $montantTotal - $montantAvance;
 
-            if ($montantRestant > 0) {
-                CommandeRepository::saveDette($montantTotal, $montantRestant, null, 'Non solde', $commandeId);
-            }
+//             if ($montantRestant > 0) {
+//                 CommandeRepository::saveDette($montantTotal, $montantRestant, null, 'Non solde', $commandeId);
+//             }
 
-            Database::commit();
+//             Database::commit();
 
-            return $commandeId;
+//             return $commandeId;
 
-        } catch (Exception $e) {
-            Database::rollback();
-            throw $e;
-        }
-    }
-}
+//         } catch (Exception $e) {
+//             Database::rollback();
+//             throw $e;
+//         }
+//     }
+// }
 
 // use App\Core\Database;
 

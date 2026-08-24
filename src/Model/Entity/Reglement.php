@@ -1,7 +1,6 @@
 <?php
 
-require_once "Dette.php";
-require_once "ModePaiement.php";
+namespace App\Model\Entity;
 
 class Reglement
 {

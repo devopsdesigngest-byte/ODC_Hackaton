@@ -1,9 +1,8 @@
 <?php
 
-require_once "Commande.php";
-require_once "Produit.php";
+namespace App\Model\Entity;
 
-class LigneCommande {
+class LigneApprovisionnement {
     private int $id;
     private int $quantite;
     private float $prix_unitaire;

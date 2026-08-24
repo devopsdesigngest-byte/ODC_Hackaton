@@ -1,13 +1,10 @@
 <?php 
 
-require_once "Client.php";
-require_once "Utilisateur.php";
-require_once "ModePaiement.php";
-require_once "LigneCommande.php";
+namespace App\Model\Entity;
 
-class Commande {
+class Approvisionnement {
     private int $id;
-    private DateTime $date_commande;
+    private \DateTime $date_commande;
     private float $montant_total;
     private float $montant_avance;
 
@@ -16,7 +13,7 @@ class Commande {
     private ModePaiement $modeDePaiement;
     private array $lignesCommande = [];
 
-    public function __construct(int $id, DateTime $date_commande, float $montant_total, float $montant_avance, Client $client, Utilisateur $utilisateur, ModePaiement $modeDePaiement) {
+    public function __construct(int $id, \DateTime $date_commande, float $montant_total, float $montant_avance, Client $client, Utilisateur $utilisateur, ModePaiement $modeDePaiement) {
         $this->id = $id;
         $this->date_commande = $date_commande;
         $this->montant_total = $montant_total;
@@ -35,11 +32,11 @@ class Commande {
         $this->id = $id;
     }
 
-    public function getDate_commande() : DateTime {
+    public function getDate_commande() : \DateTime {
         return $this->date_commande;
     }
 
-    public function setDate_commande(DateTime $date_commande) : void {
+    public function setDate_commande(\DateTime $date_commande) : void {
         $this->date_commande = $date_commande;
     }
 
